@@ -1,30 +1,38 @@
+<script>
+export default {
+  name: "App",
+
+  data: () => ({
+    page: "home",
+    pages: [
+      { title: "Home", value: "home" },
+      { title: "About", value: "about" }
+    ]
+  }),
+  methods: {
+    logChanges() {
+      console.log("ch-ch-ch-ch-changes");
+    }
+  }
+};
+</script>
+
 <template>
-  <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </nav>
-  <router-view />
+  <v-app>
+    <v-navigation-drawer permanent>
+      <v-tabs v-model="page" direction="vertical">
+        <v-tab
+          v-for="entry in pages"
+          :key="entry.value"
+          :value="entry.value"
+          @change="logChanges"
+          >{{ entry.title }}</v-tab
+        >
+      </v-tabs>
+    </v-navigation-drawer>
+
+    <v-main>
+      <router-view />
+    </v-main>
+  </v-app>
 </template>
-
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-
-nav {
-  padding: 30px;
-}
-
-nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-nav a.router-link-exact-active {
-  color: #42b983;
-}
-</style>
